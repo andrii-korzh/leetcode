@@ -1,3 +1,2 @@
 # leetcode
-leetcode progress
-https://leetcode.com/akquard/
+Profile: https://leetcode.com/akquard/

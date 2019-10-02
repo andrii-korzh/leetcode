@@ -1,55 +1,67 @@
 class Solution {
-  int zero = '0';
+
+  SumHandler sumHandler = new SumHandler();
 
   public String addStrings(String num1, String num2) {
-    if (num1.length() > num2.length()) {
-      return add(num1, num2);
-    }
+    if (num1.length() > num2.length()) return sumHandler.addNumbers(num1, num2);
 
-    return add(num2, num1);
+    return sumHandler.addNumbers(num2, num1);
   }
 
-  String add(String s1, String s2) {
-    int n = s1.length() - 1;
-    int m = s2.length() - 1;
+  static class SumHandler {
+    static int ZERO = '0';
+    int longNumIndex;
+    int shortNumIndex;
+    char[] buffer;
+    boolean extra;
 
-    char[] str = new char[s1.length()];
-    boolean extra = false;
-    while (m >= 0) {
-      int x = s1.charAt(n) - zero;
-      int z = s2.charAt(m) - zero;
-      int sum = x + z;
+    String addNumbers(String longNum, String shortNum) {
+      longNumIndex = longNum.length() - 1;
+      shortNumIndex = shortNum.length() - 1;
+      buffer = new char[longNum.length()];
+      extra = false;
+
+      add(longNum, shortNum);
+      add(longNum);
       if (extra) {
-        sum++;
-        extra = false;
+        return "1" + new String(buffer);
       }
-      if (sum > 9) {
-        sum -= 10;
-        extra = true;
-      }
-      str[n] = (char) (sum + zero);
-      m--;
-      n--;
+
+      return new String(buffer);
     }
 
-    while (n >= 0) {
-      char c = s1.charAt(n);
-      if (extra) {
-        if (c == '9') {
-          str[n] = '0';
+    private void add(String number) {
+      while (longNumIndex >= 0) {
+        char c = number.charAt(longNumIndex);
+        if (extra) {
+          if (c == '9') {
+            str[longNumIndex] = '0';
+          } else {
+            extra = false;
+            str[longNumIndex] = (char) (c + 1);
+          }
         } else {
-          extra = false;
-          str[n] = (char) (c + 1);
+          str[longNumIndex] = c;
         }
-      } else {
-        str[n] = c;
+        longNumIndex--;
       }
-      n--;
-    }
-    if (extra) {
-      return "1" + new String(str);
     }
 
-    return new String(str);
+    private void add(String number1, String number2) {
+      while (m >= 0) {
+        int sum = number1.charAt(longNumIndex) - ZERO + number2.charAt(shortNumIndex) - ZERO;
+        if (extra) {
+          sum++;
+          extra = false;
+        }
+        if (sum > 9) {
+          sum -= 10;
+          extra = true;
+        }
+        buffer[n] = (char) (sum + ZERO);
+        shortNumIndex--;
+        longNumIndex--;
+      }
+    }
   }
 }

@@ -30,26 +30,24 @@ class Trie {
   }
 
   public boolean search(String word) {
-    TrieNode cur = root;
-    for(int i = 0; i < word.length(); i++) {
-      char c = word.charAt(i);
-      if(cur.children.get(c) == null) {
-        return false;
-      }
-      cur = cur.children.get(c);
-    }
-    return cur.word;
+    TrieNode node = getNode(word);
+    return node != null && node.word;
   }
 
   public boolean startsWith(String prefix) {
+    return getNode(prefix) != null;
+  }
+
+  private TrieNode getNode(String prefix) {
     TrieNode cur = root;
-    for(int i = 0;i < prefix.length(); i++){
+    for (int i = 0; i < prefix.length(); i++) {
       char c = prefix.charAt(i);
-      if(cur.children.get(c) == null) {
-        return false;
+      TrieNode node = cur.children.get(c);
+      if (node == null) {
+        return null;
       }
-      cur = cur.children.get(c);
+      cur = node;
     }
-    return true;
+    return cur;
   }
 }

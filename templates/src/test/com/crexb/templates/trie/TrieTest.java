@@ -8,7 +8,7 @@ class TrieTest {
 
   @Test
   void insert() {
-    Trie trie = new Trie();
+    TrieMap trie = new TrieMap();
     trie.insert("g");
     assertEquals(1, trie.root.children.size());
     assertTrue(trie.root.children.get('g').word);
@@ -16,7 +16,7 @@ class TrieTest {
 
   @Test
   void search() {
-    Trie trie = new Trie();
+    TrieMap trie = new TrieMap();
     trie.insert("good");
     assertFalse(trie.search("g"));
     assertFalse(trie.search("go"));
@@ -27,7 +27,7 @@ class TrieTest {
 
   @Test
   void startsWith() {
-    Trie trie = new Trie();
+    TrieMap trie = new TrieMap();
     trie.insert("good");
     assertTrue(trie.startsWith("g"));
     assertTrue(trie.startsWith("go"));

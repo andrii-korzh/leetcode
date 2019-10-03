@@ -3,7 +3,7 @@ package com.crexb.templates.trie;
 import java.util.HashMap;
 import java.util.Map;
 
-class TrieMap {
+class TrieMap implements Trie {
   static class Node {
     Map<Character, Node> children = new HashMap<>();
     boolean word;

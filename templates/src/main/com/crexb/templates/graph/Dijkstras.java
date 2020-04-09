@@ -85,6 +85,7 @@ public class Dijkstras {
   }
 
   //get 2nd shortest by removing each edge in shortest and compare
+  //Time O(n^3) Space O(n)
   private static void secondShortestPath(int[][] adjacencyMatrix, int src, int dest) {
     int tmp = -1, s1 = -1, d1 = -1; //store temp data
     List<Integer> list = new ArrayList<Integer>(edges);
